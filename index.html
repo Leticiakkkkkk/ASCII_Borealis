@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCII Borealis</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- AJUSTE: Adicionada a fonte Roboto Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;700&family=Roboto+Mono:wght@400;700&family=Space+Mono&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="fireflies-canvas"></canvas>
+
+    <main id="app-container">
+        <header>
+            <h1 class="main-title">ASCII Borealis</h1>
+            <p class="subtitle">Transmute sua imagem em luz textual</p>
+        </header>
+
+        <!-- Contêiner de resultado, agora separado para controle de layout -->
+        <div id="result-container">
+            <pre id="ascii-output"></pre>
+            <button id="reset-btn" class="primary-btn">Converter Outra Imagem</button>
+        </div>
+
+        <!-- Contêiner para os passos de interação -->
+        <div id="interaction-container">
+            <!-- Estado: Carregando o módulo WASM -->
+            <div id="loading-state" class="state-content">
+                <div class="spinner"></div>
+                <p>Carregando motor de transmutação...</p>
+            </div>
+
+            <!-- Estado: Pronto para upload -->
+            <div id="upload-state" class="state-content">
+                <div id="drop-zone">
+                    <p>Arraste uma imagem para cá</p>
+                    <p class="or-text">ou</p>
+                    <label for="image-input" class="browse-label">Procure um arquivo</label>
+                    <input type="file" id="image-input" accept="image/*" hidden>
+                </div>
+            </div>
+            
+            <!-- Estado: Arquivo selecionado -->
+            <div id="file-selected-state" class="state-content">
+                <p id="file-name-display"></p>
+                <div class="button-group">
+                    <button id="remove-file-btn" class="secondary-btn">Remover</button>
+                    <button id="convert-btn" class="primary-btn">Converter</button>
+                </div>
+            </div>
+
+            <!-- Estado: Processando -->
+            <div id="processing-state" class="state-content">
+                <div class="spinner"></div>
+                <p>Transmutando...</p>
+            </div>
+        </div>
+
+        <!-- Contêiner para exibir mensagens de erro -->
+        <div id="error-container">
+            <p id="error-message"></p>
+            <button id="error-ok-btn" class="primary-btn">Tentar Novamente</button>
+        </div>
+
+    </main>
+
+    <div class="audio-controls">
+        <button id="mute-button" title="Ativar/Desativar som">
+            <svg id="icon-unmuted" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+            <svg id="icon-muted" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+        </button>
+    </div>
+
+    <audio id="background-music" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-longnight.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+
+    <script src="ascii.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
